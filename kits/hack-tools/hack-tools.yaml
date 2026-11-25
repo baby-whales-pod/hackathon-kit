@@ -1,0 +1,28 @@
+# syntax=docker/sandbox-kit:3
+schemaVersion: "3"
+kind: mixin
+displayName: Hackathon tools
+description: yq (command-line YAML), with only the network access it needs
+
+args:
+  yq_version:
+    # A published yq version, without the leading "v"
+    # (https://github.com/mikefarah/yq/releases).
+    default: "4.54.3"
+    pattern: '^[0-9]+\.[0-9]+\.[0-9]+$'
+    buildArg: YQ_VERSION
+
+# A capability name has only one owner in a kit set. The Copilot kit already
+# provides jq, ripgrep, git, curl, make... (sbx kit inspect docker.io/sbx/copilot),
+# so this mixin brings a tool it does not have.
+provides: ["yq@${{ kit.args.yq_version }}"]
+
+capabilities:
+  # A kit carries its own network policy.
+  # yq needs nothing at runtime: we only open the npm registry,
+  # to show that a tool opens only what it needs.
+  - type: com.docker.sandbox/network-policy@1
+    config:
+      runtime:
+        allow:
+          - registry.npmjs.org

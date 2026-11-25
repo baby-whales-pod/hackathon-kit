@@ -1,0 +1,42 @@
+# syntax=docker/sandbox-kit:3
+schemaVersion: "3"
+kind: mixin
+displayName: VS Code Remote-SSH
+description: Opens the domains the VS Code server needs to the sandbox, and sets its machine settings
+
+capabilities:
+  # The VS Code server is downloaded FROM the sandbox on the first connection,
+  # then it installs extensions from the Marketplace or Open VSX.
+  - type: com.docker.sandbox/network-policy@1
+    config:
+      runtime:
+        allow:
+          - update.code.visualstudio.com
+          - vscode.download.prss.microsoft.com
+          - "*.vscode-cdn.net"
+          - marketplace.visualstudio.com
+          - "*.gallery.vsassets.io"
+          - "*.gallerycdn.vsassets.io"
+          - open-vsx.org
+  # Machine settings of the VS Code server: no telemetry, no automatic updates.
+  - type: com.docker.sandbox/lifecycle@1
+    config:
+      startup:
+        - command:
+            - sh
+            - -c
+            - |
+              set -e
+              f="$HOME/.vscode-server/data/Machine/settings.json"
+              [ -f "$f" ] && exit 0
+              mkdir -p "$(dirname "$f")"
+              cat > "$f" <<'JSON'
+              {
+                "telemetry.telemetryLevel": "off",
+                "update.mode": "none",
+                "extensions.autoUpdate": false,
+                "terminal.integrated.defaultProfile.linux": "bash"
+              }
+              JSON
+          user: agent
+          description: Default machine settings for the VS Code server

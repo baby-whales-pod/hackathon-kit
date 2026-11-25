@@ -1,0 +1,23 @@
+# Hackathon "base" environment (level 3).
+# Relative paths are resolved from this file's folder.
+schemaVersion: "1"
+
+# Sandbox name, and SSH host name (<name>.sbx) at level 4.
+name: loandesk
+
+# The agent: the published kit docker.io/sbx/copilot-kit.
+agent: copilot
+
+# The whole repository is mounted at the same path as on the host.
+workspace: .
+
+kits:
+  - ./kits/node        # Node.js and npm: the Copilot image has neither
+  - ./kits/hack-tools
+
+env:
+  NODE_ENV: development
+
+sandboxOptions:
+  memory: 8g
+  skills: readonly

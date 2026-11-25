@@ -1,0 +1,16 @@
+{
+  "agent_servers": {
+    "Copilot (sbx)": {
+      "type": "custom",
+      "command": "sbx",
+      "args": ["exec", "-i", "nw-copilot", "copilot", "--acp", "--stdio"],
+      "env": {}
+    },
+    "OpenCode (sbx)": {
+      "type": "custom",
+      "command": "sbx",
+      "args": ["exec", "-i", "nw-opencode", "opencode", "acp"],
+      "env": {}
+    }
+  }
+}

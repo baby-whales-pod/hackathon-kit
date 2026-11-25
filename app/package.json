@@ -1,0 +1,12 @@
+{
+  "name": "loan-desk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Small demo API for the sbx hackathon (neutral banking theme, no real data)",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=18" }
+}

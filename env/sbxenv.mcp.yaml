@@ -1,0 +1,23 @@
+# MCP layer (level 5), merged AFTER the base:
+#   sbx env create sbxenv.yaml env/sbxenv.mcp.yaml
+schemaVersion: "1"
+agent: copilot
+
+# Wikipedia: no authentication, the mcp: block is enough.
+# sbx env registers it on the host and adds it to the sandbox's static MCP servers.
+mcp:
+  servers:
+    - name: wikipedia
+      url: https://wikipedia-mcp.vercel.app/mcp
+
+# Context7: NOT in the mcp: block, which cannot declare a header
+# and would re-register the server without the key. We rely on the
+# manual registration (sbx mcp add ... --header), and these
+# lifecycle commands run on the HOST.
+lifecycle:
+  initialize:
+    - name: Check that the context7 MCP server is registered
+      command: sbx mcp inspect context7 > /dev/null
+  postCreate:
+    - name: Attach Context7 to this sandbox only
+      command: sbx mcp load context7 --sandbox "$SBX_SANDBOX_NAME"

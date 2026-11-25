@@ -1,0 +1,5 @@
+# Command lines to paste into ACP Patchbay (Settings › Agents).
+# Plain `sbx` is enough. Only if the editor cannot find it, use its absolute path
+# (`which sbx`, or `where sbx` on Windows).
+sbx exec -i nw-copilot copilot --acp --stdio
+sbx exec -i nw-opencode opencode acp

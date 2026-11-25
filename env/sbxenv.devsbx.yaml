@@ -1,0 +1,10 @@
+# Level 4 plan B: exactly the recipe from the devsbx article
+# (vscode-ssh workload kit, no AI agent). Standalone file, not a layer:
+#   sbx env create env/sbxenv.devsbx.yaml
+schemaVersion: "1"
+name: vscode-demo
+agent: vscode-ssh
+kits:
+  - ../kits/vscode-ssh
+  - ../kits/hack-tools
+workspace: ..

@@ -1,0 +1,17 @@
+# syntax=docker/sandbox-kit:3
+schemaVersion: "3"
+kind: mixin
+displayName: Node.js
+description: Node.js and npm (official binary from nodejs.org), missing from the Copilot image
+
+args:
+  node_major:
+    # A Node.js release line (https://nodejs.org/dist/). 24 = LTS.
+    default: "24"
+    pattern: '^[0-9]+$'
+    buildArg: NODE_MAJOR
+
+provides: ["node@${{ kit.args.node_major }}"]
+
+# No network capability: Node.js is downloaded when the kit is built (on the host),
+# and Loan Desk has no npm dependency to download at runtime.

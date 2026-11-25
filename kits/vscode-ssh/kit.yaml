@@ -1,0 +1,22 @@
+# syntax=docker/sandbox-kit:3
+# Taken from the article "Reproducing the devcontainer DX, but securely with SBX" (k33g.org, Oct 17, 2026)
+schemaVersion: "3"
+kind: workload
+displayName: vscode-ssh
+description: >-
+    Shell sandbox for VS Code Remote-SSH
+licenses: [MIT]
+version: "0.1.0"
+capabilities:
+    - type: com.docker.sandbox/sbx@1
+    - type: com.docker.sandbox/network-policy@1
+      config:
+        runtime:
+            allow:
+                - update.code.visualstudio.com
+                - vscode.download.prss.microsoft.com
+                - "*.vscode-cdn.net"
+                - marketplace.visualstudio.com
+                - "*.gallery.vsassets.io"
+                - "*.gallerycdn.vsassets.io"
+                - open-vsx.org

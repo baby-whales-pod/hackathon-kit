@@ -1,0 +1,6 @@
+# "VS Code Remote-SSH" layer (level 4), merged AFTER the base:
+#   sbx env create sbxenv.yaml env/sbxenv.vscode.yaml
+schemaVersion: "1"
+agent: copilot
+kits:
+  - ../kits/vscode-remote
